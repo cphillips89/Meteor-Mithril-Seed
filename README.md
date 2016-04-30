@@ -4,7 +4,7 @@ It replaces Blaze with Mithril, sets up basic Mithril routing and creates a shar
 
 Bootstrap is also included by default in the client/styles folder. 
 
-I have also included a demonstration of customer user sign-in/sign-up using Meteors accounts-password package,
+I have also included a demonstration of user sign-in/sign-up using Meteors accounts-password package,
 as well as a demonstration of mapping results returned from the local MongoDB and from an external API.
 
 The result mapping route only becomes available once you are signed in/up. 
