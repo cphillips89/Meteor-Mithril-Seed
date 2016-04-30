@@ -1,0 +1,17 @@
+meteor-base
+mobile-experience
+mongo
+session
+jquery
+tracker
+standard-minifier-css
+standard-minifier-js
+es5-shim
+ecmascript
+accounts-base
+accounts-password
+autopublish
+insecure
+http
+anti:fake
+dburles:factory
