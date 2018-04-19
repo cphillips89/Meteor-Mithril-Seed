@@ -1,0 +1,28 @@
+{
+  "name": "Meteor-Mithril-Seed",
+  "version": "1.0.0",
+  "description": "This is a seed application which anyone can clone for getting started with using Mithril with Meteor.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.44",
+    "mithril": "^1.1.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cphillips-korewireless/Meteor-Mithril-Seed.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cphillips-korewireless/Meteor-Mithril-Seed/issues"
+  },
+  "homepage": "https://github.com/cphillips-korewireless/Meteor-Mithril-Seed#readme"
+}

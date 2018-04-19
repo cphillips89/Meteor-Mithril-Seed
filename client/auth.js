@@ -1,41 +1,38 @@
-auth = {
-    controller: function(){
-        var ctrl = this;
-        ctrl.signUp = false;
-        
-        ctrl.login = function(e)
-        {
-			e.preventDefault();
-			if (ctrl.signUp == true){
-			if (e.target[1].value != e.target[2].value) return;	
-			let auth = {
-			  email: e.target[0].value,
-			  password: e.target[1].value
-			};
-			console.log(auth);
-			Accounts.createUser(auth, function(err) {
-			  if (err)
-			    console.log(err);
-			  else
-			    console.log('success!');
-			});
-			}
-			else{
-
-				Meteor.loginWithPassword(e.target[0].value, e.target[1].value, function(err) {
+import m from 'Mithril'
+export class auth {
+        constructor(vnode) {
+			// vnode.state is undefined at this point
+			this.signUp = false;
+			this.login = (e) => {
+				console.log(e)
+				if (this.signUp == true){
+				if (e.target[1].value != e.target[2].value) return;	
+				let auth = {
+				  email: e.target[0].value,
+				  password: e.target[1].value
+				};
+				console.log(auth);
+				Accounts.createUser(auth, function(err) {
 				  if (err)
-				    console.log(err);
+					console.log(err);
 				  else
-				    console.log('success!');
-				    m.redraw(true);
-				    m.route('/')
+					console.log('success!');
 				});
+				}
+				else{
+					let user = document.getElementById('username');
+					let password = document.getElementById('password');
+					Meteor.loginWithPassword(user.value, password.value, function(err) {
+					  if (err)
+						console.log(err);
+					  else
+						console.log('success!');
+						m.route.set('/')
+					});
+				}
 			}
-            console.log(Meteor.user());
-        }
-        
-    },
-    view: function(ctrl){
+		}
+    view (){
         return m('.jumbotron', [m('div', [m("section.signin", [ 
 		m(".container.text-center", [
 			m(".row", [
@@ -43,10 +40,9 @@ auth = {
 				m(".col-md-6.offset-md-3.form-box", [
 					m(".row", [
 						m(".col-md-12", [
-							m("h2", ctrl.signUp == true ? 'Sign up' : 'Sign in')
+							m("h2", this.signUp == true ? 'Sign up' : 'Sign in')
 						])
 					]),
-					m("form[action='']", {onsubmit: ctrl.login}, [
 						m(".form-group", [
 							m("label[for='email']", ["Email Address ",m("span.required", "*")]),
 							m("input.form-control[name='email'][placeholder='Email Address'][type='email'][id='username']")
@@ -55,12 +51,12 @@ auth = {
 							m("label[for='password']", ["Password ",m("span.required", "*")]),
 							m("input.form-control[name='password'][placeholder='Password'][type='password'][id='password']")
 						]),
-						ctrl.signUp == true ? [m(".form-group", [
+						this.signUp == true ? [m(".form-group", [
 							m("label[for='password']", ["Password Confirm ",m("span.required", "*")]),
 							m("input.form-control[name='password'][placeholder='Password'][type='password'][id='password']")
 						])] : '',
 						m(".col-md-4", [
-						m("button.btn.btn-primary.expand[type='submit']", ctrl.signUp == true ? "Sign up" : "Sign in"),
+						m("button.btn.btn-primary.expand", {onclick: this.login, type: 'button'}, this.signUp == true ? "Sign up" : "Sign in"),
 						]),
 						/*
 						m(".col-md-4", [
@@ -68,10 +64,9 @@ auth = {
 						]),  
 						*/
 						m(".col-md-6", [
-							m("a.Pointer", {onclick: function(){ctrl.signUp == true ? ctrl.signUp = false : ctrl.signUp = true}}, 
-							ctrl.signUp == true ? "Already have an account?" : "Don't have an account?")
+							m("a.Pointer", {onclick: () => {this.signUp == true ? this.signUp = false : this.signUp = true}}, 
+							this.signUp == true ? "Already have an account?" : "Don't have an account?")
 						])
-					]),
 				])
 			])
 		])

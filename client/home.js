@@ -1,3 +1,4 @@
+import m from 'Mithril'
 home = {
     controller: function(){
         var ctrl = this;

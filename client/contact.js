@@ -1,3 +1,4 @@
+import m from 'Mithril'
 contact = {
     controller: function(){
         var ctrl = this;
