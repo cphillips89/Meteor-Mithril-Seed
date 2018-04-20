@@ -10,8 +10,8 @@ as well as a demonstration of mapping results returned from the local MongoDB an
 The result mapping route only becomes available once you are signed in/up. 
 
 The following seed user account is also automatically created for you when you run meteor. It is created by the seeder.js file in the server folder.
-    - `username: "test"`
-    - `email: "test@example.com"`
-    - `password: "password"`
+# `username: "test"`
+# `email: "test@example.com"`
+# `password: "password"`
 
 
