@@ -3,33 +3,33 @@ export class auth {
         constructor(vnode) {
 			// vnode.state is undefined at this point
 			this.signUp = false;
-			this.login = (e) => {
-				console.log(e)
-				if (this.signUp == true){
-				if (e.target[1].value != e.target[2].value) return;	
-				let auth = {
-				  email: e.target[0].value,
-				  password: e.target[1].value
-				};
-				console.log(auth);
-				Accounts.createUser(auth, function(err) {
+		}
+		login(e) {
+			console.log(e)
+			if (this.signUp == true){
+			if (e.target[1].value != e.target[2].value) return;	
+			let auth = {
+			  email: e.target[0].value,
+			  password: e.target[1].value
+			};
+			console.log(auth);
+			Accounts.createUser(auth, function(err) {
+			  if (err)
+				console.log(err);
+			  else
+				console.log('success!');
+			});
+			}
+			else{
+				let user = document.getElementById('username');
+				let password = document.getElementById('password');
+				Meteor.loginWithPassword(user.value, password.value, function(err) {
 				  if (err)
 					console.log(err);
 				  else
 					console.log('success!');
+					m.route.set('/')
 				});
-				}
-				else{
-					let user = document.getElementById('username');
-					let password = document.getElementById('password');
-					Meteor.loginWithPassword(user.value, password.value, function(err) {
-					  if (err)
-						console.log(err);
-					  else
-						console.log('success!');
-						m.route.set('/')
-					});
-				}
 			}
 		}
     view (){

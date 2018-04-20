@@ -1,47 +1,39 @@
 import m from 'Mithril'
-results = {
-    controller: function(){
-        var ctrl = this;
-        ctrl.loadResults = false;
-        ctrl.results = {};
-        ctrl.resultsFetch = function(){
-        ctrl.loadResults = true;
-        ctrl.results = Messages.find().fetch();
-        console.log(ctrl.results);   
-        m.redraw(true);
+export class results {
+        constructor(){
+            loadResults = false;
+            results = {};
         }
-        ctrl.resultsExternalFetch = function(){
-        Meteor.call('ResultsExternal', function (error, response) {
-      
-      if (error) { 
-          
-        console.log(error)
-        
-      } else if(response) {
-        console.log(response)
-        ctrl.results = response.data;
-        ctrl.loadResults = true;
-        return ctrl.results
-        
-      }
-    }); 
-        console.log(ctrl.results);   
-        m.redraw(true);
-        }
+        resultsExternalFetch(){
+            Meteor.call('ResultsExternal', (error, response) => {
 
-    },
-    view: function(ctrl){
-        return m('.jumbotron', [m('h2', "Result mapping from a local mongo DB and from an External API")],
-        [m('button.btn.btn-success', {onclick: function(){ ctrl.resultsFetch();
-        }}, 'Load Results')],
-        [m('button.btn.btn-warning', {onclick: function(){
-        ctrl.resultsExternalFetch();
-        }}, 'Load External API Results')],
-        [m('hr')],
-        [m("ul", [
-            ctrl.loadResults ? ctrl.results.map(function(res) {
-                return m("li", (res.name||res.title) + ":  " + (res.text || res.body))
-            }) : ''
-        ])])
-    }
+        if (error) { 
+
+            console.log(error)
+
+        } else if(response) {
+            console.log(response)
+            this.results = response.data;
+            this.loadResults = true;
+            m.redraw();
+        }
+        }); 
+        }
+        resultsFetch(){
+            this.loadResults = true;
+            this.results = Messages.find().fetch();
+            console.log(this.results);   
+            m.redraw();
+        }
+        view(){
+            return m('.jumbotron', [m('h2', "Result mapping from a local mongo DB and from an External API")],
+            [m('button.btn.btn-success', {onclick: () => { this.resultsFetch() }}, 'Load Results')],
+            [m('button.btn.btn-warning', {onclick: () => { this.resultsExternalFetch() }}, 'Load External API Results')],
+            [m('hr')],
+            [m("ul", [
+                this.loadResults ? this.results.map((res) => {
+                    return m("li", (res.name||res.title) + ":  " + (res.text || res.body))
+                }) : ''
+            ])])
+        }
 }
