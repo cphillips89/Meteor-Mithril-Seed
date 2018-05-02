@@ -1,10 +1,9 @@
 import m from 'Mithril'
-about = {
-    controller: function(){
-        var ctrl = this;
+export class about {
+    constructor (){
         
-    },
-    view: function(ctrl){
+    }
+    view (){
         return m('.jumbotron', 'About info')
     }
 }

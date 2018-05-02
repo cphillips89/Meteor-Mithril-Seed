@@ -1,6 +1,10 @@
 import m from 'Mithril'
 import { auth } from '/client/auth.js';
+import { about } from '/client/about.js';
 import { results } from '/client/results.js';
+import { contact } from '/client/contact.js';
+import { menu } from '/client/menu.js';
+import { home } from '/client/home.js';
 
 class Page {
     constructor(content) {

@@ -1,10 +1,9 @@
 import m from 'Mithril'
-home = {
-    controller: function(){
-        var ctrl = this;
+export class home {
+    constructor(){
         
-    },
-    view: function(ctrl){
+    }
+    view (){
         return m('.jumbotron', [m('h2.text-center', 'The power and speed of Mithril, brought to the world of Meteor')])
     }
 }

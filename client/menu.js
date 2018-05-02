@@ -1,13 +1,9 @@
 import m from 'Mithril'
-menu = {
-    controller: function(){
-        var ctrl = this;
+export class menu {
+    constructor (){
 		
-    },
-    view: function(ctrl){
-        // setTimeout(function(){
-        //     m.redraw(true);
-        // }, 0)
+    }
+    view (){
         return [
 	m('div.navbar.navbar-default.navbar-static-top', [
     m('.container',[

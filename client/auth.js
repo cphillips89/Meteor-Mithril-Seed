@@ -4,25 +4,27 @@ export class auth {
 			// vnode.state is undefined at this point
 			this.signUp = false;
 		}
-		login(e) {
-			console.log(e)
-			if (this.signUp == true){
-			if (e.target[1].value != e.target[2].value) return;	
-			let auth = {
-			  email: e.target[0].value,
-			  password: e.target[1].value
-			};
-			console.log(auth);
-			Accounts.createUser(auth, function(err) {
-			  if (err)
-				console.log(err);
-			  else
-				console.log('success!');
-			});
-			}
-			else{
-				let user = document.getElementById('username');
-				let password = document.getElementById('password');
+		login(signUp) {
+			console.log(signUp)
+			const user = document.getElementById('username');
+			const password = document.getElementById('password');
+			const confirm = document.getElementById('confirm');
+			if (signUp){
+				if (password != confirm) return;	
+				let auth = {
+				email: user,
+				password: password
+				};
+				console.log(auth);
+				Accounts.createUser(auth, function(err) {
+				if (err)
+					console.log(err);
+				else
+					console.log('success!');
+				});
+				}
+			else {
+				
 				Meteor.loginWithPassword(user.value, password.value, function(err) {
 				  if (err)
 					console.log(err);
@@ -40,7 +42,7 @@ export class auth {
 				m(".col-md-6.offset-md-3.form-box", [
 					m(".row", [
 						m(".col-md-12", [
-							m("h2", this.signUp == true ? 'Sign up' : 'Sign in')
+							m("h2", this.signUp ? 'Sign up' : 'Sign in')
 						])
 					]),
 						m(".form-group", [
@@ -51,12 +53,12 @@ export class auth {
 							m("label[for='password']", ["Password ",m("span.required", "*")]),
 							m("input.form-control[name='password'][placeholder='Password'][type='password'][id='password']")
 						]),
-						this.signUp == true ? [m(".form-group", [
-							m("label[for='password']", ["Password Confirm ",m("span.required", "*")]),
-							m("input.form-control[name='password'][placeholder='Password'][type='password'][id='password']")
+						this.signUp ? [m(".form-group", [
+							m("label[for='confirm']", ["Password Confirm ",m("span.required", "*")]),
+							m("input.form-control[name='confirm'][placeholder='confirm password'][type='password'][id='confirm']")
 						])] : '',
 						m(".col-md-4", [
-						m("button.btn.btn-primary.expand", {onclick: this.login, type: 'button'}, this.signUp == true ? "Sign up" : "Sign in"),
+						m("button.btn.btn-primary.expand", {onclick: (e) => {this.login(this.signUp)}, type: 'button'}, this.signUp ? "Sign up" : "Sign in"),
 						]),
 						/*
 						m(".col-md-4", [
@@ -64,7 +66,7 @@ export class auth {
 						]),  
 						*/
 						m(".col-md-6", [
-							m("a.Pointer", {onclick: () => {this.signUp == true ? this.signUp = false : this.signUp = true}}, 
+							m("a.Pointer", {onclick: () => {this.signUp ? this.signUp = false : this.signUp = true}}, 
 							this.signUp == true ? "Already have an account?" : "Don't have an account?")
 						])
 				])
